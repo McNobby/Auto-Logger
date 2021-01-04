@@ -41,6 +41,9 @@ client.on('message', (recievedMessage) => {
         //\s+ is all whitespaces, /g is global. so it replaces all whitespace in global with '', in other words nothing
 
 if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '').includes(word))){
+    if (recievedMessage.member.roles.cache.find(r => r.name === staffRole)){
+        return
+    }
         
     //sends a warning that slurs are not tolerated, and deleted the message containing the slur
         recievedMessage.channel.send("Slurs are not tolerated <@" + recievedMessage.author.id + ">")
