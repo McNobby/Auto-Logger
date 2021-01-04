@@ -1,2 +1,2 @@
 # Auto-Logger
-A discord bot that does moderating tasks and loggs them. All in a beautiful way
+A discord bot that does moderating tasks and logs them. All in a beautiful way
