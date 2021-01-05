@@ -35,14 +35,6 @@ module.exports.command = (recievedMessage, primaryCommand, arguments) => {
 
     }
 
-     // disabled for v1 as there is no command for non staff
-    //provides a list of commands for the normies (!help)
-   // else if (pCmd == "help") {
-     
-    //   recievedMessage.channel.send(helpEmbed)
-    //}
-
-
     //provides a list of staff commands (!modhelp)
     else if (pCmd == 'staffhelp') {
         //checks if author is staff
@@ -218,7 +210,7 @@ module.exports.command = (recievedMessage, primaryCommand, arguments) => {
 
         
     }
-
+    //unfinished
     else if (pCmd == 'allmuted'){
         if (recievedMessage.member.roles.cache.find(r => r.name === adminRole)){
             let allMembers = recievedMessage.guild.members
@@ -227,7 +219,7 @@ module.exports.command = (recievedMessage, primaryCommand, arguments) => {
         
     }
 
-
+    //crashes the bot on purpose incase admins feels its necessary
     else if (pCmd == 'alexaoff') {
         if (recievedMessage.member.roles.cache.find(r => r.name === adminRole)){
             console.log("bye sisters");
@@ -237,16 +229,17 @@ module.exports.command = (recievedMessage, primaryCommand, arguments) => {
     }
         
    
-    
+    //suggestion command
     else if (pCmd == 'suggest'){
         if (recievedMessage.channel.type == 'text') {
+            //finds channel for suggestions after specified channel name
             var logger2 = recievedMessage.guild.channels.cache.find(
                 channel => channel.name === 'suggestions-for-bot'
 
                 
         );
             if (logger2) { 
-                
+                //embed for suggestion
                 const SuggestionEmbed = new Discord.MessageEmbed()
                 .setTitle('Suggestion Recieved!')
                 .addField('Author of Suggestion:', '<@' + recievedMessage.author.id + '>')
@@ -262,7 +255,7 @@ module.exports.command = (recievedMessage, primaryCommand, arguments) => {
         
         
     }
-
+    //help command
     else if (pCmd == 'help'){
         recievedMessage.channel.send(helpEmbed)
     }
