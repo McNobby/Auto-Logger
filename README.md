@@ -2,19 +2,22 @@
 Developed by Jack Sweeney and Teodor Bøe. A moderation bot that logs and performs commands.
 
 The bot's primary function is to detect, remove, mute and log users that include slurs in their messages, in the fastest most clean way.
-Its designed to ignore spaces so it can detect slurs written like this: "S  L U   R"
+Its designed to ignore spaces so it can detect slurs written like this: "S  L U   R".
 Whenever someone is muted or unmute they will get a direct message from the bot.
 
 The bot has the following commands:
-!mute @member [reason]
 
-      ^needs to be a ping
-!unmute @member
+      !mute @member [reason]
+             ^needs to be a ping
+      
+      !unmute @member
+               ^needs to be a ping
 
-        ^needs to be a ping
-!staffhelp
-!help
-!suggest
+      !staffhelp
+
+      !help
+
+      !suggest
 
 If any argument is wrong the bot sends a direct message to whoever executed it.
 
