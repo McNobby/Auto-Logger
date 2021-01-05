@@ -5,6 +5,7 @@ const { logChannel, mutedRole, staffRole, adminRole } = require('./config.json')
 const reason = null
 
 
+
 //command recognition function
 //to add a new command, just add a new else if statement
 //example:
@@ -236,9 +237,35 @@ module.exports.command = (recievedMessage, primaryCommand, arguments) => {
     }
         
    
-
     
+    else if (pCmd == 'suggest'){
+        if (recievedMessage.channel.type == 'text') {
+            var logger2 = recievedMessage.guild.channels.cache.find(
+                channel => channel.name === 'suggestions-for-bot'
 
+                
+        );
+            if (logger2) { 
+                
+                const SuggestionEmbed = new Discord.MessageEmbed()
+                .setTitle('Suggestion Recieved!')
+                .addField('Author of Suggestion:', '<@' + recievedMessage.author.id + '>')
+                .addField('Suggestion:', recievedMessage.content)
+                .addField('False trigger?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159')
+                .setThumbnail("https://i.imgur.com/IPNxl5W.png")
+                .setColor('#b8002e');
+                
+                logger2.send(SuggestionEmbed);
+                recievedMessage.delete()
+            }
+        }                             
+        
+        
+    }
+
+    else if (pCmd == 'help'){
+        recievedMessage.channel.send(helpEmbed)
+    }
     //enter new commands above this line
     //if a command is not registered the bot returns this. MUST be the last statement of the function to work
     else {
@@ -257,8 +284,8 @@ module.exports.command = (recievedMessage, primaryCommand, arguments) => {
 //Controls what the help command looks like. To add a new field, do .addField. 
 const helpEmbed = new Discord.MessageEmbed()
     .setTitle(`My commands list | My prefix is !`)  
-    .addField("``hello world``", "hello World")
-    .addField("Got any suggestions? Need a bug fixing? Contact my developers, @Jaack#7159 and @Mc_nobby#6969")
+    .addField("``Suggest [Suggestion]``", "Sends a suggestion to my developers! THIS IS ONLY MEANT FOR SUGGESTIONS FOR THIS BOT!! If used for other types suggestions you will be punished! (!spank)")
+    .addField("Need a bug fixing? Contact my developers", "@Jaack#7159 and @Mc_nobby#6969")
     //gif - .setImage("https://media.giphy.com/media/l0Ex3lGUCkofpN5UQ/giphy.gif")
     .setImage("https://i.imgur.com/48H0ILI.png") //transparent logo
     .setThumbnail("https://i.imgur.com/IPNxl5W.png")
