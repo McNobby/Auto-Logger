@@ -7,8 +7,10 @@ Whenever someone is muted or unmute they will get a direct message from the bot.
 
 The bot has the following commands:
 !mute @member [reason]
+
       ^needs to be a ping
 !unmute @member
+
         ^needs to be a ping
 !staffhelp
 !help
