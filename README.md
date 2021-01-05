@@ -1,2 +1,2 @@
 # Auto-Logger
-Developed by Jack Sweeney and Teodore Bøe. A moderation bot that logs and performs commands.
+Developed by Jack Sweeney and Teodor Bøe. A moderation bot that logs and performs commands.
