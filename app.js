@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const guild = new Discord.Guild()
-const { token, prefix, swears, logChannel } = require('./config.json')
+const { token, prefix, swears, logChannel, staffRole, adminRole } = require('./config.json')
 const commands = require('./commands.js')
 
 //connect 
