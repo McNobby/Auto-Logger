@@ -106,7 +106,7 @@ client.on("messageDelete", (messageDelete) => {
      .setThumbnail("https://i.imgur.com/IPNxl5W.png")
      .setColor('#b8002e');
      //send in log channel
-     logger.send({ embed });
+     logger.send({ embed }).catch(() => console.log("Can't send deleted message embed"));
 }});
 
 //processes the promted command, and checks if its valid Jeg har ingen will to live
