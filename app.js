@@ -107,7 +107,7 @@ client.on("messageDelete", (messageDelete) => {
      .setColor('#b8002e');
      //send in log channel
      logger.send({ embed });
-}
+}});
 
 //processes the promted command, and checks if its valid Jeg har ingen will to live
 function processCommand(recievedMessage){
