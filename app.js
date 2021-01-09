@@ -99,9 +99,9 @@ client.on("messageDelete", (messageDelete) => {
         //the embed
      const embed = new Discord.MessageEmbed()
      .setTitle(`Message Deleted!`)
-     .addField('Author: ', '<@' + recievedMessage.author.id + '>')
-     .addField('Deleted Message', recievedMessage.cleanContent)
-     .addField('In channel:', recievedMessage.channel.toString())
+     .addField('Author: ', '<@' + messageDelete.author.id + '>')
+     .addField('Deleted Message', messageDelete.cleanContent)
+     .addField('In channel:', messageDelete.channel.toString())
      .addField('False trigger or something wrong?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159 with a screenshot')
      .setThumbnail("https://i.imgur.com/IPNxl5W.png")
      .setColor('#b8002e');
