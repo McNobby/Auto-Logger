@@ -90,7 +90,24 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
 
 });
 
+client.on("messageDelete", (messageDelete) => {
+    var logger = recievedMessage.guild.channels.cache.find(
+        channel => channel.name === logChannel
 
+    );
+    if (logger) { 
+        //the embed
+     const embed = new Discord.MessageEmbed()
+     .setTitle(`Message Deleted!`)
+     .addField('Author: ', '<@' + recievedMessage.author.id + '>')
+     .addField('Deleted Message', recievedMessage.cleanContent)
+     .addField('In channel:', recievedMessage.channel.toString())
+     .addField('False trigger or something wrong?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159 with a screenshot')
+     .setThumbnail("https://i.imgur.com/IPNxl5W.png")
+     .setColor('#b8002e');
+     //send in log channel
+     logger.send({ embed });
+}
 
 //processes the promted command, and checks if its valid Jeg har ingen will to live
 function processCommand(recievedMessage){
