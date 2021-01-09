@@ -91,7 +91,7 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
 });
 
 client.on("messageDelete", (messageDelete) => {
-    var logger = recievedMessage.guild.channels.cache.find(
+    var logger = messageDelete.guild.channels.cache.find(
         channel => channel.name === logChannel
 
     );
