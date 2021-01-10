@@ -93,6 +93,7 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
 //Logs all deleted messages
 client.on("messageDelete", (messageDelete) => {
     //finds the deleted messagee log channel
+    const {content, author, channel} = messageDelete
     var logger = messageDelete.guild.channels.cache.find(
         channel => channel.name === deletedLog
 
@@ -100,16 +101,16 @@ client.on("messageDelete", (messageDelete) => {
     //if the channel is found
     if (logger) { 
         //the embed
-     const embed = new Discord.MessageEmbed()
-     .setTitle(`Message Deleted!`)
-     .addField('Author: ', '<@' + messageDelete.author.id + '>')
-     .addField('Deleted Message', messageDelete.cleanContent)
-     .addField('In channel:', messageDelete.channel.toString())
-     .addField('False trigger or something wrong?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159 with a screenshot')
-     .setThumbnail("https://i.imgur.com/IPNxl5W.png")
-     .setColor('#b8002e');
+     //const embed = new Discord.MessageEmbed()
+     //.setTitle(`Message Deleted!`)
+     //.addField('Author: ', '<@' + messageDelete.author.id + '>')
+     //.addField('Deleted Message', messageDelete.cleanContent)
+     //.addField('In channel:', messageDelete.channel.toString())
+     //.addField('False trigger or something wrong?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159 with a screenshot')
+     //.setThumbnail("https://i.imgur.com/IPNxl5W.png")
+     //.setColor('#b8002e');
      //send in log channel
-     logger.send({ embed }).catch(() => console.log(err, "Can't send deleted message embed"))
+     logger.send(`Message:"${content}" **from user** ${author.toString()} was deleted in ${channel.toString()}`)
     }
 });
 
