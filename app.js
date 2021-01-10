@@ -62,7 +62,7 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
         //finds log channel
         if (recievedMessage.channel.type == 'text') {
             var logger = recievedMessage.guild.channels.cache.find(
-                channel => channel.name === deletedLog
+                channel => channel.name === logChannel
             );
             //sends slur log embed
             if (logger) { 
@@ -94,7 +94,7 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
 client.on("messageDelete", (messageDelete) => {
     //finds the deleted messagee log channel
     var logger = messageDelete.guild.channels.cache.find(
-        channel => channel.name === dedtedMsgChnl
+        channel => channel.name === deletedLog
 
     );
     //if the channel is found
