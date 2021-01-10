@@ -109,7 +109,7 @@ client.on("messageDelete", (messageDelete) => {
      .setThumbnail("https://i.imgur.com/IPNxl5W.png")
      .setColor('#b8002e');
      //send in log channel
-     logger.send({ embed }).catch(() => console.log(err, "Can't send deleted message embed"));
+     logger.send({ embed }).catch(() => console.log(err, "Can't send deleted message embed"))
     }
 });
 
