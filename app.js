@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const guild = new Discord.Guild()
-const { prefix, swears, logChannel, staffRole, adminRole, deletedMsgChnl } = require('./config.json')
+const { prefix, swears, logChannel, staffRole, adminRole, deletedLog } = require('./config.json')
 const { token}  = require('./token.json')
 const commands = require('./commands.js')
 
@@ -62,7 +62,7 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
         //finds log channel
         if (recievedMessage.channel.type == 'text') {
             var logger = recievedMessage.guild.channels.cache.find(
-                channel => channel.name === logChannel
+                channel => channel.name === deletedLog
             );
             //sends slur log embed
             if (logger) { 

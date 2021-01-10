@@ -9,6 +9,6 @@
     "mutedRole": "Muted",
     "staffRole":"Server Staff",
     "adminRole": "[Admin]",
-    "deletedMsgChnl": "🗑deleted-messages🗑"
+    "deletedLog": "🗑deleted-messages🗑"
 }
 
