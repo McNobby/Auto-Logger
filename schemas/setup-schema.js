@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 
 const reqString = {
     type: String,
-    required: true
+    
 }
 
 const setupSchema = mongoose.Schema({
@@ -11,5 +11,7 @@ const setupSchema = mongoose.Schema({
    actionLog: reqString,
    deletionLog: reqString,
    staffRole: reqString,
-   prefix: reqString,
+
 })
+
+module.exports = mongoose.model('server-setup', setupSchema)

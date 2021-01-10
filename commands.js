@@ -3,7 +3,7 @@ const client = new Discord.Client()
 const app = require('./app.js')
 const { logChannel, mutedRole, staffRole, adminRole } = require('./config.json')
 const reason = null
-
+const setup = require('./setup-command')
 
 
 //command recognition function
@@ -14,6 +14,7 @@ const reason = null
 //}
 module.exports.command = (recievedMessage, primaryCommand, arguments) => {
 
+    //deconstructs relevant properties
     const { content, author, guild, channel, member} = recievedMessage
 
     let pCmd = primaryCommand.toLowerCase();
@@ -21,11 +22,11 @@ module.exports.command = (recievedMessage, primaryCommand, arguments) => {
 
     if (pCmd == "setup"){
         if (member.permissions.has('ADMINISTRATOR')){
-            //setup logic
-            console.log('THey have admin pog');
+            setup(arguments, guild, author, channel)
+            recievedMessage.delete()
         }else{
             console.log('no admin ;-;');
-        }
+        }return
     }
     
     else if (pCmd == "intro"){
