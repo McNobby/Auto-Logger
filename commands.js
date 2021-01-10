@@ -14,16 +14,17 @@ const reason = null
 //}
 module.exports.command = (recievedMessage, primaryCommand, arguments) => {
 
+    const { content, author, guild, channel, member} = recievedMessage
+
     let pCmd = primaryCommand.toLowerCase();
     //let lowercaseArgs = arguments(0).toLowerCase(); -- not tested but should work in theory
 
-    //test command
-    if (pCmd == "test") {
-        if (arguments == "argument") {
-            recievedMessage.channel.send("you have been tested")
-        }
-        else if (arguments == "ayo") {
-            recievedMessage.channel.send("Ayo it was tested")
+    if (pCmd == "setup"){
+        if (member.permissions.has('ADMINISTRATOR')){
+            //setup logic
+            console.log('THey have admin pog');
+        }else{
+            console.log('no admin ;-;');
         }
     }
     
