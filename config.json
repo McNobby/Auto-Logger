@@ -8,6 +8,7 @@
     "logChannel": "🔨action-log🔨",
     "mutedRole": "Muted",
     "staffRole":"Server Staff",
-    "adminRole": "[Admin]"
+    "adminRole": "[Admin]",
+    "deletedMsgChnl": "🗑deleted-messages🗑"
 }
 

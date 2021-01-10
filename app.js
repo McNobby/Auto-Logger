@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const guild = new Discord.Guild()
-const { prefix, swears, logChannel, staffRole, adminRole } = require('./config.json')
+const { prefix, swears, logChannel, staffRole, adminRole, deletedMsgChnl } = require('./config.json')
 const { token}  = require('./token.json')
 const commands = require('./commands.js')
 
@@ -90,11 +90,14 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
 
 });
 
+//Logs all deleted messages
 client.on("messageDelete", (messageDelete) => {
+    //finds the deleted messagee log channel
     var logger = messageDelete.guild.channels.cache.find(
-        channel => channel.name === logChannel
+        channel => channel.name === dedtedMsgChnl
 
     );
+    //if the channel is found
     if (logger) { 
         //the embed
      const embed = new Discord.MessageEmbed()
@@ -106,8 +109,10 @@ client.on("messageDelete", (messageDelete) => {
      .setThumbnail("https://i.imgur.com/IPNxl5W.png")
      .setColor('#b8002e');
      //send in log channel
-     logger.send({ embed }).catch(() => console.log("Can't send deleted message embed"));
-}});
+     logger.send({ embed }).catch(() => console.log(err, "Can't send deleted message embed"));
+    }
+});
+
 
 //processes the promted command, and checks if its valid Jeg har ingen will to live
 function processCommand(recievedMessage){
