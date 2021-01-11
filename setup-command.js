@@ -1,6 +1,8 @@
 const mongo = require('./mongo')
 const mongoose = require('mongoose')
 const actionLogSchema = require('./schemas/actionLog-schema')
+const deleteionLogSchema = require('./schemas/deleteLog-schema')
+const staffRoleSchema = require('./schemas/staffRole-schema')
 
 module.exports = async (arguments, guild, author, channel) => {
     //!Logsetup <type> <channel/role>
@@ -34,16 +36,19 @@ module.exports = async (arguments, guild, author, channel) => {
 } 
 
 async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
-    if (type === "actionlog" || "alog") {
+    console.log(type);
+    if (type == "alog") {
+        console.log("actionLog");
         if (typeChannel){
+            const typeId = `${guild.id}.alog`
             await mongo().then(async mongoose => { 
                 try{
                    await actionLogSchema.findOneAndUpdate({
-                        _id: guild.id
+                        _id: typeId
                     },{
-                        _id: guild.id,
+                        _id: typeId,
                         actionLog: typeChannel[1],
-                        guild: guild.id,            //follow this,aslo add guild to schemas
+                        guild: guild.id,            
                     },{
                         upsert: true
                     })
@@ -53,15 +58,18 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
             })
         }
     }
-    else if (type === "deletionlog" || "dlog"){
+    else if (type == "dlog"){
+        console.log("DeletetionLog");
         if (typeChannel){
+            const typeId = `${guild.id}.dlog`
             await mongo().then(async mongoose => { 
                 try{
-                   await setupSchema.findOneAndUpdate({
-                        _id: guild.id
-                    }, {
-                        _id: guild.id,
-                        deletionLog: typeChannel[1],
+                   await deleteionLogSchema.findOneAndUpdate({
+                    _id: typeId
+                },{
+                    _id: typeId,
+                    actionLog: typeChannel[1],
+                    guild: guild.id, 
                     },{
                         upsert: true
                     })
@@ -71,15 +79,17 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
             })
         } 
     }
-    else if (type === "staffrole" || "srole"){
+    else if (type === "srole"){
         if (typeRole){
+            const typeId = `${guild.id}.srole`
             await mongo().then(async mongoose => { 
                 try{
-                   await setupSchema.findOneAndUpdate({
-                        _id: guild.id
-                    },{
-                        _id: guild.id,
-                        staffRole: typeRole[1],
+                   await staffRoleSchema.findOneAndUpdate({
+                    _id: typeId
+                },{
+                    _id: typeId,
+                    actionLog: typeRole[1],
+                    guild: guild.id, 
                     },{
                         upsert: true
                     })
@@ -89,8 +99,10 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
             })
         }
     }
+    else{
+        author.send("welp")
+    }
 }
 
 
     
-

@@ -9,7 +9,7 @@ const reqString = {
 const actionLogSchema = mongoose.Schema({
     _id: reqString,
    actionLog: reqString,
-
+   guild: reqString,
 })
 
-module.exports = mongoose.model('server-setup', actionLogSchema)
+module.exports = mongoose.model('alog-setup', actionLogSchema)

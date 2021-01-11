@@ -11,4 +11,4 @@ const staffRoleSchema = mongoose.Schema({
 
 })
 
-module.exports = mongoose.model('server-setup', staffRoleSchema)
+module.exports = mongoose.model('srole-setup', staffRoleSchema)

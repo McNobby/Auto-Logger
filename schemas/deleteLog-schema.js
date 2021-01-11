@@ -10,7 +10,8 @@ const reqString = {
 const deleteLogSchema = mongoose.Schema({
     _id: reqString,
    deleteLog: reqString,
+   guild: reqString,
 
 })
 
-module.exports = mongoose.model('server-setup', deleteLogSchema)
+module.exports = mongoose.model('dlog-setup', deleteLogSchema)
