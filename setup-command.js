@@ -9,11 +9,12 @@ module.exports = async (arguments, guild, author, channel) => {
     
     const types = ["actionlog", "deletionlog", "staffrole", "alog", "dlog", "srole"]
     //validate arguments
+    //this checks if there are any arguments
     if (!arguments[0]){
-        author.send('You need to supply arguments!')
+        author.send('You need to supply arguments like `aLog`, `dLog` or `sRole`')
     }else{
         if (!arguments[1]){
-            author.send('you need to supply a role or channel argument')
+            author.send('you need to tell me what channel or role to set')
         }else{
             const type = arguments[0].toLowerCase()
             const arg = arguments[1]
@@ -100,7 +101,7 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
         }
     }
     else{
-        author.send("welp")
+        author.send(`Im sorry, but what you tried to do didnt work.. Try again later (error clue: ${guild.id} setup`)
     }
 }
 
