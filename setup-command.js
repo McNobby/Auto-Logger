@@ -1,6 +1,6 @@
 const mongo = require('./mongo')
 const mongoose = require('mongoose')
-const setupSchema = require('./schemas/setup-schema')
+const actionLogSchema = require('./schemas/actionLog-schema')
 
 module.exports = async (arguments, guild, author, channel) => {
     //!Logsetup <type> <channel/role>
@@ -38,11 +38,12 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
         if (typeChannel){
             await mongo().then(async mongoose => { 
                 try{
-                   await setupSchema.findOneAndUpdate({
+                   await actionLogSchema.findOneAndUpdate({
                         _id: guild.id
                     },{
                         _id: guild.id,
                         actionLog: typeChannel[1],
+                        guild: guild.id,            //follow this,aslo add guild to schemas
                     },{
                         upsert: true
                     })
