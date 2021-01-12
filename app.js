@@ -1,8 +1,7 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
-const { prefix, swears, logChannel, staffRole, adminRole } = require('./config.json')
+const { prefix, swears, logChannel, staffRole, adminRole, deletedLog } = require('./config.json')
 const { token }  = require('./auth.json')
-
 const commands = require('./commands.js')
 const mongo = require('./mongo.js')
 
@@ -102,29 +101,31 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
 //Logs all deleted messages
 client.on("messageDelete", (messageDelete) => {
     //if a message in deleted messages is in dm's its ignored - otherwise bot would crash
-    if (recievedMessage.channel.type == "dm"){
+    if (messageDelete.channel.type == "dm"){
         return
-    }
-    //finds the deleted messagee log channel
-    const {content, author, channel} = messageDelete
-    var logger = messageDelete.guild.channels.cache.find(
-        channel => channel.name === deletedLog
+    }else{
+   //finds the deleted messagee log channel
+   const {content, author, channel} = messageDelete
+   var logger = messageDelete.guild.channels.cache.find(
+       channel => channel.name === deletedLog
 
-    );
-    //if the channel is found
-    if (logger) { 
-        //the embed
-     //const embed = new Discord.MessageEmbed()
-     //.setTitle(`Message Deleted!`)
-     //.addField('Author: ', '<@' + messageDelete.author.id + '>')
-     //.addField('Deleted Message', messageDelete.cleanContent)
-     //.addField('In channel:', messageDelete.channel.toString())
-     //.addField('False trigger or something wrong?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159 with a screenshot')
-     //.setThumbnail("https://i.imgur.com/IPNxl5W.png")
-     //.setColor('#b8002e');
-     //send in log channel
-     logger.send(`Message:"${content}" **from user** ${author.toString()} was deleted in ${channel.toString()}`)
+   );
+   //if the channel is found
+   if (logger) { 
+       //the embed
+    //const embed = new Discord.MessageEmbed()
+    //.setTitle(`Message Deleted!`)
+    //.addField('Author: ', '<@' + messageDelete.author.id + '>')
+    //.addField('Deleted Message', messageDelete.cleanContent)
+    //.addField('In channel:', messageDelete.channel.toString())
+    //.addField('False trigger or something wrong?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159 with a screenshot')
+    //.setThumbnail("https://i.imgur.com/IPNxl5W.png")
+    //.setColor('#b8002e');
+    //send in log channel
+    logger.send(`Message:"${content}" **from user** ${author.toString()} was deleted in ${channel.toString()}`)
+   }
     }
+ 
 });
 
 
