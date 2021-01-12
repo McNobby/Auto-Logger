@@ -37,8 +37,11 @@ module.exports = async (arguments, guild, author, channel) => {
 } 
 
 async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
-    console.log(type);
-    if (type == "alog") {
+    const alogAlias = ["alog", "actionlog"]
+    const dlogAlias = ["dlog", "deletionlog"]
+    const sroleAlias = ["srole", "staffrole"]
+
+    if (alogAlias.includes(type)) {
         console.log("actionLog");
         if (typeChannel){
             const typeId = `${guild.id}.alog`
@@ -59,7 +62,7 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
             })
         }
     }
-    else if (type == "dlog"){
+    else if (dlogAlias.includes(dlogAlias)){
         console.log("DeletetionLog");
         if (typeChannel){
             const typeId = `${guild.id}.dlog`
@@ -80,7 +83,7 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
             })
         } 
     }
-    else if (type === "srole"){
+    else if (sroleAlias.includes(type)){
         if (typeRole){
             const typeId = `${guild.id}.srole`
             await mongo().then(async mongoose => { 
