@@ -1,37 +1,39 @@
-## Welcome to GitHub Pages
+# Auto-Logger
+### Developed by Jack Sweeney and Teodor Bøe. A moderation bot that logs and performs commands.
 
-You can use the [editor on GitHub](https://github.com/McNobby/Auto-Logger/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+The bot's primary function is to detect, remove, mute and log users that include slurs in their messages, in the fastest most clean way.
+Its designed to ignore spaces so it can detect slurs written like this: "S  L U   R".
+Whenever someone is muted or unmute they will get a direct message from the bot.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+# Commands
 
-### Markdown
+      !mute @member [reason]
+             ^needs to be a ping
+      
+      !unmute @member
+               ^needs to be a ping
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+      !staffhelp
 
-```markdown
-Syntax highlighted code block
+      !setup <alog \ dlog \ srole>
 
-# Header 1
-## Header 2
-### Header 3
+      !suggest
 
-- Bulleted
-- List
+Whenever someone with the right permissions get the arguments wrong, autologger sends a direct message.
 
-1. Numbered
-2. List
+# Want autologger in your server?
 
-**Bold** and _Italic_ and `Code` text
+As of now autologger is not compleatly ready to join any server, but we are working hard to acheive this. In the mean time you could try to host it yourself!
 
-[Link](url) and ![Image](src)
-```
+# Want to host autologger for yourself?
+If you want to use this in your own discord server, download the source code and go through the config file.
+Then make sure node js version 15.5 and discord.js v12.x is installed, and run app.js with node.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Make a auth.json file and write the following:
+      
+      {
+      "token": "YOUR BOT TOKEN HERE",
+      "mongoPath: "YOUR MONGODB ADRESS"
+      }
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/McNobby/Auto-Logger/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+**Note: Auto Logger is only known to work with node.js v15**
