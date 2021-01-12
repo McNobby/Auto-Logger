@@ -5,6 +5,8 @@ const { token }  = require('./auth.json')
 const commands = require('./commands.js')
 const mongo = require('./mongo.js')
 
+//const cache = {} // guildId.<logType>: [channel, guildId]
+
 //connect 
 client.on('ready', async () => {
     console.log("connected as " + client.user.tag);
@@ -89,7 +91,7 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
                 logger.send({ embed });
                 recievedMessage.author.send(muteDM)
                 //makes sure the the bot dosen't 
-                .catch(() => console.log("Can't send DM to your user!"))
+                .catch(() => console.log("Can't send DM to your user! (disabled dms)"))
             }
             
         }

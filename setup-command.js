@@ -1,8 +1,8 @@
-const mongo = require('./mongo')
+const mongo = require('./mongo.js')
 const mongoose = require('mongoose')
-const actionLogSchema = require('./schemas/actionLog-schema')
-const deleteionLogSchema = require('./schemas/deleteLog-schema')
-const staffRoleSchema = require('./schemas/staffRole-schema')
+const actionLogSchema = require('./schemas/actionLog-schema.js')
+const deleteionLogSchema = require('./schemas/deleteLog-schema.js')
+const staffRoleSchema = require('./schemas/staffRole-schema.js')
 
 module.exports = async (arguments, guild, author, channel) => {
     //!Logsetup <type> <channel/role>
