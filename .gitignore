@@ -1,3 +1,4 @@
 # .gitignore 
 mongo.js
 auth.json
+node_modules/*
