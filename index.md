@@ -27,7 +27,7 @@ As of now autologger is not compleatly ready to join any server, but we are work
 
 # Want to host autologger for yourself?
 If you want to use this in your own discord server, download the source code and go through the config file.
-Then make sure node js version 15.5 and discord.js v12.x is installed, and run app.js with node.
+Then make sure node js version 15.5 and discord.js v12.x and latest mongoose is installed, and run app.js with node.
 
 Make a auth.json file and write the following:
       
