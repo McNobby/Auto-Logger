@@ -1,14 +1,23 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
-const guild = new Discord.Guild()
-const { prefix, swears, logChannel, staffRole, adminRole, deletedLog } = require('./config.json')
-const { token}  = require('./token.json')
+const { prefix, swears, logChannel, staffRole, adminRole } = require('./config.json')
+const { token }  = require('./auth.json')
+
 const commands = require('./commands.js')
+const mongo = require('./mongo.js')
 
 //connect 
-client.on('ready', () => {
+client.on('ready', async () => {
     console.log("connected as " + client.user.tag);
     client.user.setActivity("With logs", {type: 'PLAYING'})
+
+    await mongo().then((mongoose) => {
+        try{
+            console.log('Connected to mongo')
+        }finally{
+            mongoose.connection.close()
+        }
+    })
  
 })
 

@@ -3,7 +3,7 @@ const client = new Discord.Client()
 const app = require('./app.js')
 const { logChannel, mutedRole, staffRole, adminRole } = require('./config.json')
 const reason = null
-
+const setup = require('./setup-command')
 
 
 //command recognition function
@@ -14,17 +14,19 @@ const reason = null
 //}
 module.exports.command = (recievedMessage, primaryCommand, arguments) => {
 
+    //deconstructs relevant properties
+    const { content, author, guild, channel, member} = recievedMessage
+
     let pCmd = primaryCommand.toLowerCase();
     //let lowercaseArgs = arguments(0).toLowerCase(); -- not tested but should work in theory
 
-    //test command
-    if (pCmd == "test") {
-        if (arguments == "argument") {
-            recievedMessage.channel.send("you have been tested")
-        }
-        else if (arguments == "ayo") {
-            recievedMessage.channel.send("Ayo it was tested")
-        }
+    if (pCmd == "setup"){
+        if (member.permissions.has('ADMINISTRATOR')){
+            setup(arguments, guild, author, channel)
+            recievedMessage.delete()
+        }else{
+            console.log('no admin ;-;');
+        }return
     }
     
     else if (pCmd == "intro"){
