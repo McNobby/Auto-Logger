@@ -24,10 +24,11 @@ If any argument is wrong the bot sends a direct message to whoever executed it.
 If you want to use this in your own discord server, download the source code and go through the config file.
 Then make sure node js version 15.5 and discord.js v12.x is installed, and run app.js with node.
 
-Make a token.json file and write the following:
+Make a auth.json file and write the following:
       
       {
-      "token": "YOUR BOT TOKEN HERE"
+      "token": "YOUR BOT TOKEN HERE",
+      "mongoPath: "YOUR MONGODB ADRESS"
       }
 
 Note: Auto Logger is only tested on v15.5 of nodejs.
