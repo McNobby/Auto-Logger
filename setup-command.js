@@ -13,12 +13,15 @@ module.exports = async (arguments, guild, author, channel) => {
     if (!arguments[0]){
         author.send('You need to supply arguments like `aLog`, `dLog` or `sRole`')
     }else{
+        //checks if secondary argument is submitted
         if (!arguments[1]){
             author.send('you need to tell me what channel or role to set')
         }else{
+            //separates the argument array
             const type = arguments[0].toLowerCase()
             const arg = arguments[1]
-
+            
+            //gets the channel id from the tag
             const typeRole = arg.match(/^<@&(\d+)>$/)
             const typeChannel = arg.match(/^<#?(\d+)>$/)
 
@@ -93,7 +96,7 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
                 },{
                     _id: typeId,
                     actionLog: typeRole[1],
-                    guild: guild.id, 
+                    guild: guild.id,
                     },{
                         upsert: true
                     })
