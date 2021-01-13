@@ -4,6 +4,7 @@ const { prefix, swears, logChannel, staffRole, adminRole, deletedLog } = require
 const { token }  = require('./auth.json')
 const commands = require('./commands.js')
 const mongo = require('./mongo.js')
+const loggg = require('./send-log')
 
 //const cache = {} // guildId.<logType>: [channel, guildId]
 
@@ -50,7 +51,6 @@ client.on('message', (recievedMessage) => {
     //makes the input lowercase (.lowercase())
     //also removes all spaces with (.replace(/\s+/g)) to detect slurs written like this: S L U R
         //\s+ is all whitespaces, /g is global. so it replaces all whitespace in global with '', in other words nothing
-
 if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '').includes(word))){
     if (recievedMessage.member.roles.cache.find(r => r.name === staffRole)){
         return
@@ -88,7 +88,7 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
                 .setThumbnail("https://i.imgur.com/IPNxl5W.png")
                 .setColor('#b8002e');
                 //send in log channel
-                logger.send({ embed });
+                loggg(recievedMessage, 'send', 'slur')
                 recievedMessage.author.send(muteDM)
                 //makes sure the the bot dosen't 
                 .catch(() => console.log("Can't send DM to your user! (disabled dms)"))
@@ -124,7 +124,7 @@ client.on("messageDelete", (messageDelete) => {
     //.setThumbnail("https://i.imgur.com/IPNxl5W.png")
     //.setColor('#b8002e');
     //send in log channel
-    logger.send(`Message:"${content}" **from user** ${author.toString()} was deleted in ${channel.toString()}`)
+    loggg(messageDelete, 'send', 'delete')
    }
     }
  

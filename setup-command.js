@@ -29,7 +29,7 @@ module.exports.setup = async (arguments, guild, author, channel) => {
 
             if (types.includes(type)){
                 if(arg.match(/^<#?(\d+)>$/) || arg.match(/^<@&(\d+)>$/)){
-                    saveSetup(type, arg, guild, channel, typeChannel, typeRole)
+                    saveSetup(type, arg, guild, channel, typeChannel, typeRole, author)
                     
                 }else{
                     author.send("Invalid channel or role tag")
@@ -41,7 +41,7 @@ module.exports.setup = async (arguments, guild, author, channel) => {
     }
 } 
 
-async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
+async function saveSetup(type, arg, guild, channel, typeChannel, typeRole, author){
     const alogAlias = ["alog", "actionlog"]
     const dlogAlias = ["dlog", "deletionlog"]
     const sroleAlias = ["srole", "staffrole"]
@@ -67,7 +67,7 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
             })
         }
     }
-    else if (dlogAlias.includes(dlogAlias)){
+    else if (dlogAlias.includes(type)){
         console.log("DeletetionLog");
         if (typeChannel){
             const typeId = `${guild.id}.dlog`
@@ -77,7 +77,7 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
                     _id: typeId
                 },{
                     _id: typeId,
-                    actionLog: typeChannel[1],
+                    deleteLog: typeChannel[1],
                     guild: guild.id, 
                     },{
                         upsert: true
@@ -97,8 +97,8 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
                     _id: typeId
                 },{
                     _id: typeId,
-                    actionLog: typeRole[1],
-                    guild: guild.id,
+                    staffRole: typeRole[1],
+                    
                     },{
                         upsert: true
                     })
