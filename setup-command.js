@@ -60,7 +60,7 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
                         upsert: true
                     })
                 }finally{
-                    mongoose.connection.close
+                    mongoose.connection.close()
                 }
             })
         }
@@ -81,7 +81,7 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
                         upsert: true
                     })
                 }finally{
-                    mongoose.connection.close
+                    mongoose.connection.close()
                 }
             })
         } 
@@ -101,7 +101,7 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
                         upsert: true
                     })
                 }finally{
-                    mongoose.connection.close
+                    mongoose.connection.close()
                 }
             })
         }
