@@ -5,6 +5,7 @@ const { token }  = require('./auth.json')
 const commands = require('./commands.js')
 const mongo = require('./mongo.js')
 const loggg = require('./send-log')
+const embeds = require('./embeds')
 
 //const cache = {} // guildId.<logType>: [channel, guildId]
 
@@ -78,7 +79,7 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
             if (logger) { 
                 //send in log channel
                 loggg(recievedMessage, 'send', 'slur')
-                recievedMessage.author.send(muteDM)
+                embeds.muteDM(recievedMessage)
                 //makes sure the the bot dosen't crassh incase they have dms off
                 .catch(() => console.log("Can't send DM to your user! (disabled dms)"))
             }
@@ -91,31 +92,25 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
 
 //Logs all deleted messages
 client.on("messageDelete", (messageDelete) => {
+
     //if a message in deleted messages is in dm's its ignored - otherwise bot would crash
     if (messageDelete.channel.type == "dm"){
         return
     }else{
-   //finds the deleted messagee log channel
-   const {content, author, channel} = messageDelete
-   var logger = messageDelete.guild.channels.cache.find(
-       channel => channel.name === deletedLog
-
-   );
-   //if the channel is found
-   if (logger) { 
-       //the embed
-    //const embed = new Discord.MessageEmbed()
-    //.setTitle(`Message Deleted!`)
-    //.addField('Author: ', '<@' + messageDelete.author.id + '>')
-    //.addField('Deleted Message', messageDelete.cleanContent)
-    //.addField('In channel:', messageDelete.channel.toString())
-    //.addField('False trigger or something wrong?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159 with a screenshot')
-    //.setThumbnail("https://i.imgur.com/IPNxl5W.png")
-    //.setColor('#b8002e');
-    //send in log channel
-    loggg(messageDelete, 'send', 'delete')
-   }
+        if (messageDelete.member.roles.cache.find(r => r.name === staffRole)){
+            return
+        }else{
+               //finds the deleted messagee log channel
+            const {content, author, channel} = messageDelete
+            var logger = messageDelete.guild.channels.cache.find(
+                channel => channel.name === deletedLog);
+            //if the channel is found
+            if (logger) { 
+             loggg(messageDelete, 'send', 'delete')
+            }
+        }
     }
+
  
 });
 
@@ -132,13 +127,3 @@ function processCommand(recievedMessage){
     //hands off user input the the command.js command function
     commands.command(recievedMessage, primaryCommand, arguments)
 }
-
-//vv embeds vv
-const muteDM = new Discord.MessageEmbed()
-    .setTitle("You have been muted!")
-    .addField("This means:", "That you've broken a rule, or that we've deemed your message inappropiate.")
-    .addField("Try to mute evade?","If you mute evade by rejoining the server you will be banned permanently!")
-    .addField("False trigger?", "If you believe that this is a false trigger you will have to wait 30 minutes and see if you are unmuted by one of our staff. If you are still muted after that time, go ahead and make a ticket appealing your mute (keep in mind, we have the logs)")
-    .setColor("#b8002e")
-    .setThumbnail("https://i.imgur.com/IPNxl5W.png")
-    .setImage("https://i.imgur.com/48H0ILI.png")
