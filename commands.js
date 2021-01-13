@@ -23,8 +23,10 @@ module.exports.command = (recievedMessage, primaryCommand, arguments) => {
 
     if (pCmd == "setup"){
         if (member.permissions.has('ADMINISTRATOR')){
+
             setup(arguments, guild, author, channel)
             
+
         }else{
             console.log('no admin ;-;');
         }return

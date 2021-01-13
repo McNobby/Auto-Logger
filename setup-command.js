@@ -4,7 +4,9 @@ const actionLogSchema = require('./schemas/actionLog-schema.js')
 const deleteionLogSchema = require('./schemas/deleteLog-schema.js')
 const staffRoleSchema = require('./schemas/staffRole-schema.js')
 
-module.exports = async (arguments, guild, author, channel) => {
+const cache = {}
+
+module.exports.setup = async (arguments, guild, author, channel) => {
     //!Logsetup <type> <channel/role>
     
     const types = ["actionlog", "deletionlog", "staffrole", "alog", "dlog", "srole"]
@@ -60,7 +62,7 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
                         upsert: true
                     })
                 }finally{
-                    mongoose.connection.close()
+                    mongoose.connection.close
                 }
             })
         }
@@ -81,7 +83,7 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
                         upsert: true
                     })
                 }finally{
-                    mongoose.connection.close()
+                    mongoose.connection.close
                 }
             })
         } 
@@ -101,7 +103,7 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
                         upsert: true
                     })
                 }finally{
-                    mongoose.connection.close()
+                    mongoose.connection.close
                 }
             })
         }
