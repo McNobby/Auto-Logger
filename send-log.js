@@ -2,17 +2,17 @@ const mongo = require('./mongo')
 const mongoose = require ('mongoose')
 const actionLogSchema = require('./schemas/actionLog-schema')
 const deleteLogSchema = require('./schemas/deleteLog-schema')
+const embeds = require('./embeds')
 
 module.exports = (recievedMessage, action, type) => {
     const cache = {}
     if(action === 'send') {
-      
         sendLog(type, recievedMessage)
     }
 }
 
 sendLog = async (type, recievedMessage) => {
-    const { guild } = recievedMessage
+    const { guild, content, author, channel } = recievedMessage
 
 if (type === 'slur'){
     try{
@@ -20,12 +20,12 @@ if (type === 'slur'){
             await mongo().then(async mongoose => {
                 const result = await actionLogSchema.findOne({ _id:`${guild.id}.alog`})
         
-                console.log(result.actionLog);
+                
         
                 var logChannel = guild.channels.cache.find(
                     channel => channel.id === result.actionLog) 
         
-                logChannel.send("BRUH DEY BE SWEARING")
+                embeds.slur(recievedMessage, logChannel)
             })
         
 
@@ -38,12 +38,11 @@ if (type === 'slur'){
             await mongo().then(async mongoose => {
                 const result = await deleteLogSchema.findOne({ _id:`${guild.id}.dlog`})
         
-                console.log(result);
         
                 var logChannel = guild.channels.cache.find(
                     channel => channel.id === result.deleteLog) 
         
-                logChannel.send("BRUH DEY BE deleteing")
+                logChannel.send(`Message: "${content}" from ${author.toString()} deleted in ${channel.toString()}`)
             })
 
         }finally{
