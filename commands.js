@@ -5,6 +5,7 @@ const { logChannel, mutedRole, staffRole, adminRole } = require('./config.json')
 const reason = null
 const setup = require('./setup-command')
 
+const cache = {}
 
 //command recognition function
 //to add a new command, just add a new else if statement
@@ -23,12 +24,13 @@ module.exports.command = (recievedMessage, primaryCommand, arguments) => {
     if (pCmd == "setup"){
         if (member.permissions.has('ADMINISTRATOR')){
             setup(arguments, guild, author, channel)
-            recievedMessage.delete()
+            
         }else{
             console.log('no admin ;-;');
         }return
     }
     
+
     else if (pCmd == "intro"){
         if (recievedMessage.member.roles.cache.find(r => r.name === adminRole)){
             recievedMessage.channel.send(staffhello)
