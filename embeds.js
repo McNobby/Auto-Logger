@@ -14,7 +14,7 @@ module.exports.slur = (recievedMessage, logChannel) => {
     logChannel.send(embed)
 }
 
-module.exports.mutedm = (recievedMessage) => {
+module.exports.muteDM = (recievedMessage) => {
     const { author } = recievedMessage
     const muteDM = new Discord.MessageEmbed()
     .setTitle("You have been muted!")
@@ -25,4 +25,6 @@ module.exports.mutedm = (recievedMessage) => {
     .setThumbnail("https://i.imgur.com/IPNxl5W.png")
     .setImage("https://i.imgur.com/48H0ILI.png")
     author.send(muteDM)
+    //makes sure the the bot dosen't crassh incase they have dms off
+    .catch(() => console.log("Can't send DM to your user! (disabled dms)"))
 }

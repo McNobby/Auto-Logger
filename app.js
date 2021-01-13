@@ -80,8 +80,7 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
                 //send in log channel
                 loggg(recievedMessage, 'send', 'slur')
                 embeds.muteDM(recievedMessage)
-                //makes sure the the bot dosen't crassh incase they have dms off
-                .catch(() => console.log("Can't send DM to your user! (disabled dms)"))
+                
             }
             
         }
