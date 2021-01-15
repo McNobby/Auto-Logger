@@ -1,18 +1,23 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
+
 const { prefix, swears, logChannel, staffRole, adminRole, deletedLog } = require('./config.json')
 const { token }  = require('./auth.json')
-const commands = require('./commands.js')
-const mongo = require('./mongo.js')
-const loggg = require('./send-log')
-const embeds = require('./embeds')
 
-//const cache = {} // guildId.<logType>: [channel, guildId]
+const commands = require('./commands.js')
+const mongo = require('./libraries/mongo')
+const loggg = require('./send-log')
+const embeds = require('./libraries/embeds')
+const staffrole = require('./libraries/staffrole')
+
+const NodeChache = require('node-cache')
+const myCache = new NodeChache( { stdTTL: 0, checkperiod: 0 } )
+
 
 //connect 
 client.on('ready', async () => {
     console.log("connected as " + client.user.tag);
-    client.user.setActivity("With logs", {type: 'PLAYING'})
+    client.user.setActivity("Alan", {type: 'WATCHING'})
 
     await mongo().then((mongoose) => {
         try{
@@ -28,6 +33,7 @@ client.login(token)
 
 //message listener
 client.on('message', (recievedMessage) => {
+   const { guild } = recievedMessage
     //ignores messages from dm's
     if (recievedMessage.channel.type == "dm"){
         return
@@ -37,6 +43,7 @@ client.on('message', (recievedMessage) => {
     if (recievedMessage.author == client.user) {
         return
     }
+    staffrole.main(recievedMessage)
 
 //logs recieved message
     console.log(`Mesaage recieved: "${recievedMessage.content}" from: ${recievedMessage.author.username}`); 
@@ -68,25 +75,14 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
         //mutedroleid for test server 793074569433972736
         member.roles.add(role);
         
-        //mod log channel name
-        const CHANNEL = 'mod-logs';
-        //finds log channel
-        if (recievedMessage.channel.type == 'text') {
-            var logger = recievedMessage.guild.channels.cache.find(
-                channel => channel.name === logChannel
-            );
-            //sends slur log embed
-            if (logger) { 
-                //send in log channel
-                loggg(recievedMessage, 'send', 'slur')
-                embeds.muteDM(recievedMessage)
-                
-            }
+
+          //sends slur log embed
+          //send in log channel
+          loggg(recievedMessage, 'send', 'slur')
+          embeds.muteDM(recievedMessage)
             
-        }
+        
     }
-
-
 });
 
 //Logs all deleted messages
@@ -106,6 +102,7 @@ client.on("messageDelete", (messageDelete) => {
             //if the channel is found
             if (logger) { 
              loggg(messageDelete, 'send', 'delete')
+ 
             }
         }
     }

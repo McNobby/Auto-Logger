@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { mongoPath } = require('./auth.json')
+const { mongoPath } = require('../auth.json')
 
 module.exports = async () => {
     await mongoose.connect(mongoPath, {

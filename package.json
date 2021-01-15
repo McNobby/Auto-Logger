@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "discord.js": "^12.5.1",
-    "mongoose": "^5.11.11"
+    "mongoose": "^5.11.11",
+    "node-cache": "^5.1.2"
   }
 }
