@@ -8,8 +8,7 @@ const commands = require('./commands.js')
 const mongo = require('./libraries/mongo')
 const loggg = require('./send-log')
 const embeds = require('./libraries/embeds')
-const staffrole = require('./libraries/staffrole')
-
+const eventHandler = require('./event-handler')
 const NodeChache = require('node-cache')
 const myCache = new NodeChache( { stdTTL: 0, checkperiod: 0 } )
 
@@ -43,7 +42,6 @@ client.on('message', (recievedMessage) => {
     if (recievedMessage.author == client.user) {
         return
     }
-    staffrole.main(recievedMessage)
 
 //logs recieved message
     console.log(`Mesaage recieved: "${recievedMessage.content}" from: ${recievedMessage.author.tag}`); 
@@ -60,28 +58,7 @@ client.on('message', (recievedMessage) => {
     //also removes all spaces with (.replace(/\s+/g)) to detect slurs written like this: S L U R
         //\s+ is all whitespaces, /g is global. so it replaces all whitespace in global with '', in other words nothing
 if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '').includes(word))){
-    if (recievedMessage.member.roles.cache.find(r => r.name === staffRole)){
-        return
-    }
-        
-    //sends a warning that slurs are not tolerated, and deleted the message containing the slur
-        recievedMessage.channel.send("Slurs are not tolerated <@" + recievedMessage.author.id + ">")
-        recievedMessage.delete()
-        .catch(console.error);
-
-        //gives the offending member the role named Muted
-        let role = recievedMessage.guild.roles.cache.find(r => r.name === "Muted");
-        let member = recievedMessage.member
-        //mutedroleid for test server 793074569433972736
-        member.roles.add(role);
-        
-
-          //sends slur log embed
-          //send in log channel
-          loggg(recievedMessage, 'alog', 'slur')
-          embeds.muteDM(recievedMessage)
-            
-        
+    eventHandler('slur', recievedMessage)             
     }
 });
 

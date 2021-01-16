@@ -3,8 +3,9 @@ const mongoose = require('mongoose')
 const actionLogSchema = require('./schemas/actionLog-schema.js')
 const deleteionLogSchema = require('./schemas/deleteLog-schema.js')
 const staffRoleSchema = require('./schemas/staffRole-schema')
-const role = require('./libraries/staffrole')
+const cacherole = require('./commands')
 const logs = require('./send-log')
+const eventHandler = require('./event-handler')
 
 
 const cache = {}
@@ -99,7 +100,8 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole, autho
     else if (sroleAlias.includes(type)){
         if (typeRole){
             const typeId = `${guild.id}.srole`
-            role.main(guild , typeId, typeRole[1], 'cache')
+            cacherole.command(recievedMessage, 'cachestaffrole', typeRole[1])
+            eventHandler('cachestaffrole' ,recievedMessage, typeRole[1])
             await mongo().then(async mongoose => { 
                 try{
                    await staffRoleSchema.findOneAndUpdate({
