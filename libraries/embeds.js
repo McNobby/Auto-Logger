@@ -1,6 +1,11 @@
 const Discord = require('discord.js')
 
 module.exports.slur = (recievedMessage, logChannel) => {
+    const {guild} = recievedMessage
+
+    var alogChannel = guild.channels.cache.find(
+        channel => channel.id === logChannel)
+
     const embed = new Discord.MessageEmbed()
     .setTitle(`Slur Usage Detected!`)
     .addField('Offending member;', '<@' + recievedMessage.author.id + '>')
@@ -11,7 +16,8 @@ module.exports.slur = (recievedMessage, logChannel) => {
     .addField('False trigger or something wrong?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159 with a screenshot')
     .setThumbnail("https://i.imgur.com/IPNxl5W.png")
     .setColor('#b8002e');
-    logChannel.send(embed)
+    alogChannel.send(embed)
+
 }
 
 module.exports.muteDM = (recievedMessage) => {
@@ -27,4 +33,38 @@ module.exports.muteDM = (recievedMessage) => {
     author.send(muteDM)
     //makes sure the the bot dosen't crassh incase they have dms off
     .catch(() => console.log("Can't send DM to your user! (disabled dms)"))
+}
+
+module.exports.muteLog = (recievedMessage, logChannel, muted) => {
+    const {member, guild} = recievedMessage
+
+    var alogChannel = guild.channels.cache.find(
+        channel => channel.id === logChannel)
+
+    const MuteEmbed = new Discord.MessageEmbed()
+    .setTitle('Member Muted!')
+    .addField('Staff Responsible;', `${member.id.toString()}`)
+    .addField('Person Muted;', muted)
+    .addField('False trigger?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159')
+    .setThumbnail("https://i.imgur.com/IPNxl5W.png")
+    .setColor('#b8002e');
+    
+    alogChannel.send(MuteEmbed)
+}
+
+module.exports.unMuteLog= (recievedMessage, logChannel, member) => {
+    const {guild} = recievedMessage
+    
+    var alogChannel = guild.channels.cache.find(
+        channel => channel.id === logChannel)
+
+    const unmuteEmbed = new Discord.MessageEmbed()
+    .setTitle('Member Unmuted!')
+    .addField('Staff Responsible;', '<@' + recievedMessage.author.id + '>')
+    .addField('Person Unmuted;', member)
+    .addField('False trigger?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159')
+    .setThumbnail("https://i.imgur.com/IPNxl5W.png")
+    .setColor('#03fca9');
+
+    alogChannel.send(unmuteEmbed)
 }

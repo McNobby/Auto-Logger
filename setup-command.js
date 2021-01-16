@@ -4,12 +4,15 @@ const actionLogSchema = require('./schemas/actionLog-schema.js')
 const deleteionLogSchema = require('./schemas/deleteLog-schema.js')
 const staffRoleSchema = require('./schemas/staffRole-schema')
 const role = require('./libraries/staffrole')
+const logs = require('./send-log')
 
 
 const cache = {}
 
-module.exports.setup = async (arguments, guild, author, channel) => {
-    //!Logsetup <type> <channel/role>
+module.exports.setup = async (arguments, recievedMessage) => {
+    const {guild, author, channel} = recievedMessage
+
+    // !setup <type> <channel/role>
     
     const types = ["actionlog", "deletionlog", "staffrole", "alog", "dlog", "srole"]
     //validate arguments
@@ -31,7 +34,7 @@ module.exports.setup = async (arguments, guild, author, channel) => {
 
             if (types.includes(type)){
                 if(arg.match(/^<#?(\d+)>$/) || arg.match(/^<@&(\d+)>$/)){
-                    saveSetup(type, arg, guild, channel, typeChannel, typeRole, author)
+                    saveSetup(type, arg, guild, channel, typeChannel, typeRole, author, recievedMessage)
                     
                 }else{
                     author.send("Invalid channel or role tag")
@@ -43,7 +46,7 @@ module.exports.setup = async (arguments, guild, author, channel) => {
     }
 } 
 
-async function saveSetup(type, arg, guild, channel, typeChannel, typeRole, author){
+async function saveSetup(type, arg, guild, channel, typeChannel, typeRole, author, recievedMessage){
     const alogAlias = ["alog", "actionlog"]
     const dlogAlias = ["dlog", "deletionlog"]
     const sroleAlias = ["srole", "staffrole"]
@@ -53,7 +56,9 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole, autho
         if (typeChannel){
             const typeId = `${guild.id}.alog`
             await mongo().then(async mongoose => { 
+                logs(recievedMessage, 'cache', 'alog', typeChannel[1])
                 try{
+                    
                    await actionLogSchema.findOneAndUpdate({
                         _id: typeId
                     },{
@@ -73,7 +78,8 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole, autho
         console.log("DeletetionLog");
         if (typeChannel){
             const typeId = `${guild.id}.dlog`
-            await mongo().then(async mongoose => { 
+            await mongo().then(async mongoose => {
+                logs(recievedMessage, 'cache', 'dlog', typeChannel[1])
                 try{
                    await deleteionLogSchema.findOneAndUpdate({
                     _id: typeId

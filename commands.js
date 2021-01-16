@@ -4,6 +4,7 @@ const app = require('./app.js')
 const { logChannel, mutedRole, staffRole, adminRole } = require('./config.json')
 const reason = null
 const setup = require('./setup-command')
+const sendLog = require('./send-log')
 
 
 //command recognition function
@@ -22,7 +23,7 @@ module.exports.command = (recievedMessage, primaryCommand, arguments) => {
 
     if (pCmd == "setup"){
         if (member.permissions.has('ADMINISTRATOR')){
-            setup.setup(arguments, guild, author, channel)
+            setup.setup(arguments, recievedMessage)
            
         }else{
             console.log('no admin ;-;');
@@ -77,18 +78,13 @@ module.exports.command = (recievedMessage, primaryCommand, arguments) => {
                                 channel => channel.name === logChannel
                         );
                             if (logger) { 
-                                const unmuteEmbed = new Discord.MessageEmbed()
-                                .setTitle('Member Unmuted!')
-                                .addField('Staff Responsible;', '<@' + recievedMessage.author.id + '>')
-                                .addField('Person Unmuted;', member)
-                                .addField('False trigger?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159')
-                                .setThumbnail("https://i.imgur.com/IPNxl5W.png")
-                                .setColor('#03fca9');
 
-                                logger.send(unmuteEmbed);
-                                member.send(unMuteDM)
-                                //makes sure the the bot dosen't crash from sneding dm
-                                .catch(() => console.log("Can't send DM to your user!"))
+                                //sends mute log embed
+                               sendLog(recievedMessage, 'alog', 'unmute', member)
+                               //sends a dm to the muted member saying they have been muted
+                               member.send(unMuteDM)
+                               //makes sure the the bot dosen't crash from sneding dm
+                               .catch(() => console.log("Can't send DM to your user!"))
                             }
                         }                             
                     }
@@ -165,17 +161,9 @@ module.exports.command = (recievedMessage, primaryCommand, arguments) => {
                         );
                             if (logger) { 
                                 
-                                const MuteEmbed = new Discord.MessageEmbed()
-                                .setTitle('Member Muted!')
-                                .addField('Staff Responsible;', '<@' + recievedMessage.author.id + '>')
-                                .addField('Person Muted;', member)
-                                .addField('Reason provided:', reason)
-                                .addField('False trigger?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159')
-                                .setThumbnail("https://i.imgur.com/IPNxl5W.png")
-                                .setColor('#b8002e');
                                 
                                 //sends mute log embed
-                                logger.send(MuteEmbed);
+                                sendLog(recievedMessage, 'alog', 'mute', member)
                                 //sends a dm to the muted member saying they have been muted
                                 member.send(muteDM)
                                 //makes sure the the bot dosen't crash from sneding dm

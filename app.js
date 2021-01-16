@@ -78,7 +78,7 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
 
           //sends slur log embed
           //send in log channel
-          loggg(recievedMessage, 'send', 'slur')
+          loggg(recievedMessage, 'alog', 'slur')
           embeds.muteDM(recievedMessage)
             
         
@@ -101,7 +101,7 @@ client.on("messageDelete", (messageDelete) => {
                 channel => channel.name === deletedLog);
             //if the channel is found
             if (logger) { 
-             loggg(messageDelete, 'send', 'delete')
+             loggg(messageDelete, 'delete')
  
             }
         }
