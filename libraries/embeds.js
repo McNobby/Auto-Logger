@@ -83,3 +83,18 @@ module.exports.unMuteLog = (recievedMessage, logChannel, member) => {
 
     alogChannel.send(unmuteEmbed)
 }
+
+module.exports.setupHelp = (recievedMessage) => {
+    const { channel } = recievedMessage
+
+    const setupHelp = new Discord.MessageEmbed()
+    .setTitle('How to setup channels and roles!')
+    .addField('The command', '!setup `aLog` or `dLog` or `sRole` `#channel/@role` ')
+    .addField("What's aLog?", "Alog is short for Action log and the channel you provide will be where I post the action logs")
+    .addField("What's dLog?","Dlog is shord for Deletion log and the channel you provide is where I log all deleted messages from members")
+    .addField("What's sRole?", "SRole is short for Staff Role and the role you provide is the staffrole that all staff have. Anyone with staff role will get acsess to all commands in !staffhelp")
+    .setThumbnail("https://i.imgur.com/IPNxl5W.png")
+    .setColor('#03fca9');
+
+    channel.send(setupHelp)
+}

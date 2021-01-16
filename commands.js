@@ -5,6 +5,7 @@ const { logChannel, mutedRole, adminRole } = require('./config.json')
 const reason = null
 const setup = require('./setup-command')
 const sendLog = require('./send-log')
+const embeds = require('./libraries/embeds')
 
 const NodeChache = require('node-cache')
 const myCache = new NodeChache( { stdTTL: 0, checkperiod: 0 } )
@@ -64,8 +65,12 @@ module.exports.command = async (recievedMessage, primaryCommand, arguments) => {
 
     if (pCmd == "setup"){
         if (member.permissions.has('ADMINISTRATOR')){
-            if (!arguments[0]){
-                setup.setup(arguments, recievedMessage)
+
+            if(!arguments.includes('help')){
+                setup(arguments, guild, author, channel)
+            }else{
+                embeds.setupHelp(recievedMessage)
+
             }
             
            
@@ -180,23 +185,23 @@ else if (pCmd == 'mute'){
                 if (!member.roles.cache.some(rolee => rolee.name === mutedRole)){
                     member.roles.add(role);
                     
-                    //WIP checks if there is a provided reason
-                    if (arguments[1]){
-                        if (arguments.slice(1)){
-                            //defines the reason
-                            let reasonArr = arguments.slice(1)
-                            let reason = reasonArr.join(" ")
-                            //let loud = reasonArr.match(/.+(-l)/)
-                            
-                            console.log(reasonArr);
-
-                            if (loud[1]){
-                                console.log(reason);
-
-                            }
-                            
-                        }
-                    }
+                    //checks if there is a provided reason (WIP)
+                    //if (arguments[1]){
+                    //    if (arguments.slice(1)){
+                    //        //defines the reason
+                    //        let reasonArr = arguments.slice(1)
+                    //        let reason = reasonArr.join(" ")
+                    //        let reason = reason.match(/.+(-l)$/)
+                    //        
+                    //        
+//
+                    //        if (loud[1]){
+                    //            console.log(reason);
+//
+                    //        }
+                    //        
+                    //    }
+                    //}
                     
                     
                     //deletes message containing the promted command
@@ -212,7 +217,7 @@ else if (pCmd == 'mute'){
                             
                             
                             //sends mute log embed
-                            sendLog(recievedMessage, 'alog', 'mute', member)
+                            sendLog(recievedMessage, 'alog', 'mute', member, reason)
                             //sends a dm to the muted member saying they have been muted
                             member.send(muteDM)
                             //makes sure the the bot dosen't crash from sneding dm
