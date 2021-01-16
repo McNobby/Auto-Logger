@@ -218,7 +218,7 @@ else if (pCmd == 'mute'){
                             
                             
                             //sends mute log embed
-                            sendLog(recievedMessage, 'alog', 'mute', member, reason)
+                            sendLog(recievedMessage, 'alog', 'mute', member)
                             //sends a dm to the muted member saying they have been muted
                             member.send(muteDM)
                             //makes sure the the bot dosen't crash from sneding dm
