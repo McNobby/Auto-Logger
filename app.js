@@ -46,7 +46,7 @@ client.on('message', (recievedMessage) => {
     staffrole.main(recievedMessage)
 
 //logs recieved message
-    console.log(`Mesaage recieved: "${recievedMessage.content}" from: ${recievedMessage.author.username}`); 
+    console.log(`Mesaage recieved: "${recievedMessage.content}" from: ${recievedMessage.author.tag}`); 
 
     //checks if message contains the prefix
     if (recievedMessage.content.startsWith(prefix)){

@@ -5,7 +5,7 @@ module.exports.slur = (recievedMessage, logChannel) => {
 
     var alogChannel = guild.channels.cache.find(
         channel => channel.id === logChannel)
-
+    
     const embed = new Discord.MessageEmbed()
     .setTitle(`Slur Usage Detected!`)
     .addField('Offending member;', '<@' + recievedMessage.author.id + '>')
@@ -17,6 +17,7 @@ module.exports.slur = (recievedMessage, logChannel) => {
     .setThumbnail("https://i.imgur.com/IPNxl5W.png")
     .setColor('#b8002e');
     alogChannel.send(embed)
+    
 
 }
 
@@ -36,14 +37,14 @@ module.exports.muteDM = (recievedMessage) => {
 }
 
 module.exports.muteLog = (recievedMessage, logChannel, muted) => {
-    const {member, guild} = recievedMessage
+    const {author, guild} = recievedMessage
 
     var alogChannel = guild.channels.cache.find(
         channel => channel.id === logChannel)
 
     const MuteEmbed = new Discord.MessageEmbed()
     .setTitle('Member Muted!')
-    .addField('Staff Responsible;', `${member.id.toString()}`)
+    .addField('Staff Responsible;', `<@${author.id}>`)
     .addField('Person Muted;', muted)
     .addField('False trigger?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159')
     .setThumbnail("https://i.imgur.com/IPNxl5W.png")

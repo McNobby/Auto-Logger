@@ -27,14 +27,15 @@ module.exports = async (recievedMessage, type, log, roleId) => {
                 await mongo().then(async mongoose => {
                     console.log('FETCHING FROM DB (ALOG)');
                     const result = await actionLogSchema.findOne({ _id:`${guild.id}.alog`})
-    
-                
-                    //var logChannel = guild.channels.cache.find(
-                    //    channel => channel.id === result.actionLog) 
-                    alogCache = myCache.set(`${guild.id}.alog`, result.actionLog)
                     
-                    })
-                
+                   
+                    if (!result){
+                        alogCache = myCache.set(`${guild.id}.alog`, null)
+                    }else{
+                        alogCache = myCache.set(`${guild.id}.alog`, result.actionLog)
+                    }
+                    
+                    });
             }finally{
                 mongoose.connection.close()
             }
@@ -42,17 +43,22 @@ module.exports = async (recievedMessage, type, log, roleId) => {
 
         alog = myCache.get((`${guild.id}.alog`))
 
-        if(log == 'slur'){
+        if(alog){
+            if(log == 'slur'){
             
-            embeds.slur(recievedMessage, alog)
+                embeds.slur(recievedMessage, alog)
+            }
+            else if (log == 'mute'){
+                //typeId is the muted person in this case
+                embeds.muteLog(recievedMessage, alog, roleId)
+            }
+            else if(log == 'unmute'){
+                embeds.unMuteLog(recievedMessage, alog, roleId)
+            }
+        }else{
+            recievedMessage.channel.send('`no logging channel set!`')
         }
-        else if (log == 'mute'){
-            //typeId is the muted person in this case
-            embeds.muteLog(recievedMessage, alog, roleId)
-        }
-        else if(log == 'unmute'){
-            embeds.unMuteLog(recievedMessage, alog, roleId)
-        }
+
 
     }
     else if (type === 'delete') {
@@ -60,23 +66,25 @@ module.exports = async (recievedMessage, type, log, roleId) => {
         if (!dlog){
             try{
                 await mongo().then(async mongoose => {
+                    console.log('FETCHING FROM DB (DLOG)')
                     const result = await deleteLogSchema.findOne({ _id:`${guild.id}.dlog`})
             
                     dlogCache = myCache.set(`${guild.id}.dlog`, result.deleteLog)
                 })
-    
+            }catch{ 
+                console.log('unable to log deletion, only a occasional one time issue');
             }finally{
                 mongoose.connection.close()
             }
         }
         dlog = myCache.get((`${guild.id}.dlog`))
-        var logChannel = guild.channels.cache.find(
-            channel => channel.id === dlog) 
+        if(dlog){
 
-        logChannel.send(`Message: "${content}" from ${author.toString()} was deleted in ${channel.toString()}`)
+            var logChannel = guild.channels.cache.find(
+                channel => channel.id === dlog) 
+    
+            logChannel.send(`Message: "${content}" from ${author.toString()} was deleted in ${channel.toString()}`)
+        }
     }
 }
 
-sendLog = async (type, recievedMessage) => {
-
-}
