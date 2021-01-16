@@ -52,6 +52,8 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole, autho
     const dlogAlias = ["dlog", "deletionlog"]
     const sroleAlias = ["srole", "staffrole"]
 
+    const {guild} = recievedMessage
+
     if (alogAlias.includes(type)) {
         console.log("actionLog");
         if (typeChannel){
