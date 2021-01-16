@@ -1,23 +1,29 @@
-const mongo = require('./mongo.js')
+const mongo = require('./libraries/mongo.js')
 const mongoose = require('mongoose')
 const actionLogSchema = require('./schemas/actionLog-schema.js')
 const deleteionLogSchema = require('./schemas/deleteLog-schema.js')
-const staffRoleSchema = require('./schemas/staffRole-schema.js')
+const staffRoleSchema = require('./schemas/staffRole-schema')
+const cacherole = require('./commands')
+const logs = require('./send-log')
+const eventHandler = require('./event-handler')
+
 
 const cache = {}
 
-module.exports.setup = async (arguments, guild, author, channel) => {
-    //!Logsetup <type> <channel/role>
+module.exports.setup = async (arguments, recievedMessage) => {
+    const {guild, author, channel} = recievedMessage
+
+    // !setup <type> <channel/role>
     
     const types = ["actionlog", "deletionlog", "staffrole", "alog", "dlog", "srole"]
     //validate arguments
     //this checks if there are any arguments
     if (!arguments[0]){
-        author.send('You need to supply arguments like `aLog`, `dLog` or `sRole`')
+        author.send('You need to provide arguments like; `aLog`, `dLog` or `sRole`')
     }else{
         //checks if secondary argument is submitted
         if (!arguments[1]){
-            author.send('you need to tell me what channel or role to set')
+            author.send('You need to tell me what channel or role to set first.')
         }else{
             //separates the argument array
             const type = arguments[0].toLowerCase()
@@ -29,10 +35,10 @@ module.exports.setup = async (arguments, guild, author, channel) => {
 
             if (types.includes(type)){
                 if(arg.match(/^<#?(\d+)>$/) || arg.match(/^<@&(\d+)>$/)){
-                    saveSetup(type, arg, guild, channel, typeChannel, typeRole)
+                    saveSetup(type, arg, guild, channel, typeChannel, typeRole, author, recievedMessage)
                     
                 }else{
-                    author.send("Invalid channel or role tag")
+                    author.send("Invalid channel or role tag.")
                 }
             }else{
                 author.send("Invalid type, see `!setuphelp`")
@@ -41,7 +47,7 @@ module.exports.setup = async (arguments, guild, author, channel) => {
     }
 } 
 
-async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
+async function saveSetup(type, arg, guild, channel, typeChannel, typeRole, author, recievedMessage){
     const alogAlias = ["alog", "actionlog"]
     const dlogAlias = ["dlog", "deletionlog"]
     const sroleAlias = ["srole", "staffrole"]
@@ -51,7 +57,9 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
         if (typeChannel){
             const typeId = `${guild.id}.alog`
             await mongo().then(async mongoose => { 
+                logs(recievedMessage, 'cache', 'alog', typeChannel[1])
                 try{
+                    
                    await actionLogSchema.findOneAndUpdate({
                         _id: typeId
                     },{
@@ -67,17 +75,18 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
             })
         }
     }
-    else if (dlogAlias.includes(dlogAlias)){
+    else if (dlogAlias.includes(type)){
         console.log("DeletetionLog");
         if (typeChannel){
             const typeId = `${guild.id}.dlog`
-            await mongo().then(async mongoose => { 
+            await mongo().then(async mongoose => {
+                logs(recievedMessage, 'cache', 'dlog', typeChannel[1])
                 try{
                    await deleteionLogSchema.findOneAndUpdate({
                     _id: typeId
                 },{
                     _id: typeId,
-                    actionLog: typeChannel[1],
+                    deleteLog: typeChannel[1],
                     guild: guild.id, 
                     },{
                         upsert: true
@@ -91,14 +100,16 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
     else if (sroleAlias.includes(type)){
         if (typeRole){
             const typeId = `${guild.id}.srole`
+            cacherole.command(recievedMessage, 'cachestaffrole', typeRole[1])
+            eventHandler('cachestaffrole' ,recievedMessage, typeRole[1])
             await mongo().then(async mongoose => { 
                 try{
                    await staffRoleSchema.findOneAndUpdate({
                     _id: typeId
-                },{
+                    },{
                     _id: typeId,
-                    actionLog: typeRole[1],
-                    guild: guild.id,
+                    staffRole: typeRole[1],
+                    
                     },{
                         upsert: true
                     })
@@ -109,7 +120,7 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole){
         }
     }
     else{
-        author.send(`Im sorry, but what you tried to do didnt work.. Try again later (error clue: ${guild.id} setup`)
+        author.send(`I'm sorry, I was unable to do that. Try again later! (error clue: ${guild.id} setup) If you think this should work, contact our developers on GitHub.`)
     }
 }
 
