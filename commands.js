@@ -67,7 +67,7 @@ module.exports.command = async (recievedMessage, primaryCommand, arguments) => {
         if (member.permissions.has('ADMINISTRATOR')){
 
             if(!arguments.includes('help')){
-                setup.setup(arguments, guild, author, channel)
+                setup.setup(arguments, recievedMessage)
             }else{
                 embeds.setupHelp(recievedMessage)
 

@@ -47,12 +47,11 @@ module.exports.setup = async (arguments, recievedMessage) => {
     }
 } 
 
-async function saveSetup(type, arg, guildd, channel, typeChannel, typeRole, author, recievedMessage){
+async function saveSetup(type, arg, guild, channel, typeChannel, typeRole, author, recievedMessage){
     const alogAlias = ["alog", "actionlog"]
     const dlogAlias = ["dlog", "deletionlog"]
     const sroleAlias = ["srole", "staffrole"]
 
-    const {guild} = recievedMessage
 
     if (alogAlias.includes(type)) {
         console.log("actionLog");
