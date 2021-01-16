@@ -300,9 +300,9 @@ else if (pCmd == 'help'){
 else {
     console.log("Sorry, I don't know that one! Try doing `!help` for more commands!");
 }
-    //this is if 
+    //this is if what the bot does if there is no staffrole in database
     }else{
-        recievedMessage.channel.send('`hey admins you need to give me a staffrole! do !setup help`')
+        recievedMessage.channel.send('`hey admins you need to provide me a staffrole! do !setup help to see more`')
     }
  
 

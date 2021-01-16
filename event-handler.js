@@ -78,7 +78,7 @@ module.exports = async (eventType,  message, role) =>{
             }
         }
    
-    }else{//sends t
-        message.channel.send('`hey admins you need to give me a staffrole! do !setup help`')
+    }else{//this is if what the bot does if there is no staffrole in database
+        message.channel.send('`hhey admins you need to provide me a staffrole! do !setup helpS to see how`')
     }
 }
