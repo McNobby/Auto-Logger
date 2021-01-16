@@ -64,7 +64,10 @@ module.exports.command = async (recievedMessage, primaryCommand, arguments) => {
 
     if (pCmd == "setup"){
         if (member.permissions.has('ADMINISTRATOR')){
-            setup.setup(arguments, recievedMessage)
+            if (!arguments[0]){
+                setup.setup(arguments, recievedMessage)
+            }
+            
            
         }else{
             console.log('no admin ;-;');
@@ -365,3 +368,5 @@ const staffhello = new Discord.MessageEmbed()
     .setImage("https://media1.tenor.com/images/a7bd6b94430c1e66148d580209e377c5/tenor.gif?itemid=5043108")
     .setThumbnail("https://i.imgur.com/IPNxl5W.png")
     .setColor("#34ebdb")
+
+    

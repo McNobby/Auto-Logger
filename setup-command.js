@@ -19,11 +19,11 @@ module.exports.setup = async (arguments, recievedMessage) => {
     //validate arguments
     //this checks if there are any arguments
     if (!arguments[0]){
-        author.send('You need to supply arguments like `aLog`, `dLog` or `sRole`')
+        author.send('You need to provide arguments like; `aLog`, `dLog` or `sRole`')
     }else{
         //checks if secondary argument is submitted
         if (!arguments[1]){
-            author.send('you need to tell me what channel or role to set')
+            author.send('You need to tell me what channel or role to set first.')
         }else{
             //separates the argument array
             const type = arguments[0].toLowerCase()
@@ -38,7 +38,7 @@ module.exports.setup = async (arguments, recievedMessage) => {
                     saveSetup(type, arg, guild, channel, typeChannel, typeRole, author, recievedMessage)
                     
                 }else{
-                    author.send("Invalid channel or role tag")
+                    author.send("Invalid channel or role tag.")
                 }
             }else{
                 author.send("Invalid type, see `!setuphelp`")
@@ -120,7 +120,7 @@ async function saveSetup(type, arg, guild, channel, typeChannel, typeRole, autho
         }
     }
     else{
-        author.send(`Im sorry, but what you tried to do didnt work.. Try again later (error clue: ${guild.id} setup`)
+        author.send(`I'm sorry, I was unable to do that. Try again later! (error clue: ${guild.id} setup) If you think this should work, contact our developers on GitHub.`)
     }
 }
 

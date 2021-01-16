@@ -53,7 +53,21 @@ module.exports.muteLog = (recievedMessage, logChannel, muted) => {
     alogChannel.send(MuteEmbed)
 }
 
-module.exports.unMuteLog= (recievedMessage, logChannel, member) => {
+module.exports.onJoin = (systemChannel) => {
+    const onJoinembed = new Discord.MessageEmbed()
+    .setTitle('Hi There! Thanks for adding me :D')
+    .addField("My name's AutoLogger", "But you can call me Alan ;)")
+    .addField("I need an Administrator to set me up...", "If that's you, go ahead and run '!setup help'!")
+    .addField("I hope I can help you out on your server...", "If you have any questions, contact my developers on Github!")
+    .setImage("https://media1.tenor.com/images/a7bd6b94430c1e66148d580209e377c5/tenor.gif?itemid=5043108")
+    .setThumbnail("https://i.imgur.com/IPNxl5W.png")
+    .setColor('#03fca9');
+    systemChannel.send(onJoinembed)
+}
+
+
+
+module.exports.unMuteLog = (recievedMessage, logChannel, member) => {
     const {guild} = recievedMessage
     
     var alogChannel = guild.channels.cache.find(

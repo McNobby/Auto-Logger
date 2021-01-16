@@ -32,7 +32,7 @@ client.login(token)
 
 //message listener
 client.on('message', (recievedMessage) => {
-   const { guild } = recievedMessage
+
     //ignores messages from dm's
     if (recievedMessage.channel.type == "dm"){
         return
@@ -86,6 +86,11 @@ client.on("messageDelete", (messageDelete) => {
 
  
 });
+
+client.on('guildCreate', (newGuild) => {
+    const { systemChannel } = newGuild
+    embeds.onJoin(systemChannel)
+})
 
 
 //processes the promted command, and checks if its valid Jeg har ingen will to live
