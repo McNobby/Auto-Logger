@@ -24,6 +24,7 @@ Whenever someone with the right permissions get the arguments wrong, autologger 
 # Want autologger in your server?
 
 As of now we havent published the invite link, but the bot is technically ready, but we want to make sure that there wont be any problems.
+<a href="setup.md">Here is how to set up autologger</a>
 
 # Want to host autologger for yourself?
 If you want to use this in your own discord server, download the source code and go through the config file.
