@@ -15,7 +15,7 @@ Whenever someone is muted or unmute they will get a direct message from the bot.
 
       !staffhelp
 
-      !setup <alog \ dlog \ srole> <-- not fully implemented yet
+      !setup <alog \ dlog \ srole \ help> 
 
       !suggest
 
