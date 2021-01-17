@@ -23,11 +23,11 @@ Whenever someone with the right permissions get the arguments wrong, autologger 
 
 # Want autologger in your server?
 
-As of now autologger is not compleatly ready to join any server, but we are working hard to acheive this. In the mean time you could try to host it yourself!
+As of now we havent published the invite link, but the bot is technically ready, but we want to make sure that there wont be any problems.
 
 # Want to host autologger for yourself?
 If you want to use this in your own discord server, download the source code and go through the config file.
-Then make sure node js version 15.5 and discord.js v12.x and latest mongoose is installed, and run app.js with node.
+Then make sure node js version 15.5 and discord.js v12.x and latest mongoose is installed and node-cache, and run app.js with node.
 
 Make a auth.json file and write the following:
       
