@@ -68,7 +68,7 @@ client.on("messageDelete", (messageDelete) => {
     if (messageDelete.author == client.user){
         return
     }
-    if (message.channel.type == "dm"){
+    if (messageDelete.channel.type == "dm"){
         return
     }
     eventHandler('delete', messageDelete)
