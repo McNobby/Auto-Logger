@@ -65,25 +65,7 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
 //Logs all deleted messages
 client.on("messageDelete", (messageDelete) => {
 
-    //if a message in deleted messages is in dm's its ignored - otherwise bot would crash
-    if (messageDelete.channel.type == "dm"){
-        return
-    }else{
-        if (messageDelete.member.roles.cache.find(r => r.name === staffRole)){
-            return
-        }else{
-               //finds the deleted messagee log channel
-            const {content, author, channel} = messageDelete
-            var logger = messageDelete.guild.channels.cache.find(
-                channel => channel.name === deletedLog);
-            //if the channel is found
-            if (logger) { 
-             loggg(messageDelete, 'delete')
- 
-            }
-        }
-    }
-
+    eventHandler('delete', messageDelete)
  
 });
 

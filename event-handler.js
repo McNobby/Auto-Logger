@@ -66,14 +66,14 @@ module.exports = async (eventType,  message, role) =>{
         }
     
         else if(eventType == 'delete'){
-            if (messageDelete.channel.type == "dm"){
+            if (message.channel.type == "dm"){
                 return
             }else{
-                if (messageDelete.member.roles.cache.find(r => r.id === staffRole)){
+                if (message.member.roles.cache.find(r => r.id === staffRole)){
                     return
                 }else{
                     
-                     loggg(messageDelete, 'delete')
+                     loggg(message, 'delete')
                 }
             }
         }
