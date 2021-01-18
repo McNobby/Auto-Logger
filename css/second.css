@@ -29,10 +29,14 @@
 .back i {
   -webkit-transform: translateX(60px);
           transform: translateX(60px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .back p {
   opacity: 0;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 .back:hover {
@@ -182,6 +186,26 @@
   font-family: 'Kalam', cursive;
 }
 
+.discord-tag {
+  background-color: #6d7bff31;
+  color: #7289DA;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 2px 5px;
+  font-family: 'Righteous', cursive;
+  cursor: pointer;
+}
+
+.discord-tag2 {
+  background-color: #1c33ff18;
+  color: #607eec;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 2px 5px;
+  font-family: 'Righteous', cursive;
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 1261px) {
   * {
     overflow-y: auto;
@@ -219,9 +243,6 @@
   .left {
     overflow-y: auto;
   }
-}
-
-@media only screen and (max-height: 850px) {
   .right {
     overflow-y: auto;
   }
