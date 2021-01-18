@@ -64,9 +64,11 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
 
 //Logs all deleted messages
 client.on("messageDelete", (messageDelete) => {
-
+    if (messageDelete.author == client.user){
+        return
+    }
     eventHandler('delete', messageDelete)
- 
+
 });
 
 client.on('guildCreate', (newGuild) => {
@@ -84,6 +86,6 @@ function processCommand(recievedMessage){
 
     console.log(`primary command: "${primaryCommand}" from ${recievedMessage.author.username}`);
     
-    //hands off user input the the command.js command function
+    //hands off user input the the command.js 
     commands.command(recievedMessage, primaryCommand, arguments)
 }
