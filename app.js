@@ -64,7 +64,11 @@ if(swears.some(word => recievedMessage.content.toLowerCase().replace(/\s+/g, '')
 
 //Logs all deleted messages
 client.on("messageDelete", (messageDelete) => {
+    //ignore messages from the bot
     if (messageDelete.author == client.user){
+        return
+    }
+    if (message.channel.type == "dm"){
         return
     }
     eventHandler('delete', messageDelete)
