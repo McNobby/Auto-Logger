@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+}
+
+.main {
+  font-family: 'Righteous', cursive;
+}
+
+.inline {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100vh;
+}
+
+.left {
+  z-index: 5;
+  background-color: #465C69;
+  color: #fff;
+  width: 100%;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.left:hover {
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
+}
+
+.left .text {
+  text-align: center;
+  margin-top: 20vh;
+  font-size: 35px;
+}
+
+.left .text img {
+  max-width: 90%;
+}
+
+.left .text a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 50px;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+
+.left .text a:hover {
+  font-size: 53px;
+}
+
+.right {
+  z-index: 10;
+  width: 100%;
+  background-color: #2EC4B6;
+  color: #fff;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.right:hover {
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
+}
+
+.right .text {
+  margin-top: 20vh;
+  font-size: 30px;
+  text-align: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.right .text-second {
+  margin-top: 5vh;
+  font-size: 30px;
+  padding: 20px;
+  text-align: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  font-family: 'Kalam', cursive;
+}
+
+.button {
+  margin-top: 35px;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+.button #button {
+  background-color: #465C69;
+  padding: 5px 60px;
+  border-radius: 50px;
+  border: 0 solid;
+  font-size: 40px;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.button #button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.button #button h3 {
+  font-family: 'Kalam', cursive;
+}
+
+.button a {
+  text-decoration: none;
+  color: #fff;
+}
+
+@media only screen and (max-width: 1000px) {
+  * {
+    overflow-y: auto;
+  }
+  .inline {
+    display: block;
+  }
+  .left {
+    height: 100vh;
+  }
+  .right {
+    height: 100vh;
+  }
+}
+/*# sourceMappingURL=main.css.map */
