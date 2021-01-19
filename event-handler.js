@@ -9,6 +9,17 @@ const embeds = require('./libraries/embeds')
 module.exports = async (eventType,  message, role) =>{
     const { guild } =  message
     console.log(eventType);
+
+      //this checks if there is a Muted role in the guild, if not it will make one
+      if(!guild.roles.cache.find(r => r.name === "Muted")){
+        guild.roles.create({
+            data: {
+                name: 'Muted',
+            },
+            reason: 'muted role for members that are muted, You will have to configure permissions yourself!'
+        })
+    }
+
     // checks if it is a update from the setup command for staffrole
     if (eventType == 'cachestaffrole'){
         //sets the updated role i cache

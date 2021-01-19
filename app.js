@@ -78,6 +78,14 @@ client.on("messageDelete", (messageDelete) => {
 client.on('guildCreate', (newGuild) => {
     const { systemChannel } = newGuild
     embeds.onJoin(systemChannel)
+    if(!newGuild.roles.cache.find(r => r.name === "Muted")){
+        newGuild.roles.create({
+            data: {
+                name: 'Muted',
+            },
+            reason: 'muted role for members that are muted, You will have to configure permissions yourself!'
+        })
+    }
 })
 
 
