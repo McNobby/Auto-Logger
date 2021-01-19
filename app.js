@@ -18,6 +18,10 @@ client.on('ready', async () => {
     console.log("connected as " + client.user.tag);
     client.user.setActivity("Alan", {type: 'WATCHING'})
 
+   
+    const size = client.guilds.cache.size
+    console.log("active in ",size," servers");
+
     await mongo().then((mongoose) => {
         try{
             console.log('Connected to mongo')
@@ -25,10 +29,10 @@ client.on('ready', async () => {
             mongoose.connection.close()
         }
     })
- 
+  
 })
-
 client.login(token)
+
 
 //message listener
 client.on('message', (recievedMessage) => {
