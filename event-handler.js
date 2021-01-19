@@ -45,7 +45,7 @@ module.exports = async (eventType,  message, role) =>{
     //if there was a staffrole in cache it will return true and continue
     if(staffRole){
         if(eventType == 'slur'){
-            if(!message.member.roles.cache.find(r => r.id === staffRole)){
+            if(!message.member.roles.cache.get(r => r.id === staffRole)){
                 //sends a warning that slurs are not tolerated, and deleted the message containing the slur
                 message.channel.send("Slurs are not tolerated <@" + message.author.id + ">")
                 message.delete()
