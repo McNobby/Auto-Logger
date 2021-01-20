@@ -334,8 +334,8 @@ else {
 //Controls what the help command looks like. To add a new field, do .addField. 
 const helpEmbed = new Discord.MessageEmbed()
     .setTitle(`My commands list | My prefix is !`)  
-    .addField("``Suggest [Suggestion]``", "Sends a suggestion to my developers! THIS IS ONLY MEANT FOR SUGGESTIONS FOR THIS BOT!! If used for other types suggestions you will be punished! (!spank)")
-    .addField("Need a bug fixing? Contact my developers", "@Jaack#7159 and @Mc_nobby#6969")
+    .addField("No public commands", "Right now i don't have any commands for non staff.")
+    .addField("Need a bug fixing? Contact my developers", "https://mcnobby.github.io/Auto-Logger/feedback")
     //gif - .setImage("https://media.giphy.com/media/l0Ex3lGUCkofpN5UQ/giphy.gif")
     .setImage("https://i.imgur.com/48H0ILI.png") //transparent logo
     .setThumbnail("https://i.imgur.com/IPNxl5W.png")
