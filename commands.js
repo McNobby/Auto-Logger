@@ -92,7 +92,7 @@ module.exports.command = async (recievedMessage, primaryCommand, arguments) => {
 
     else if (pCmd == "intro"){
         if (member.permissions.has('ADMINISTRATOR')){
-            recievedMessage.channel.send(staffhello)
+            embeds.staffIntro(recievedMessage)
             recievedMessage.delete()
         }
 
@@ -107,11 +107,11 @@ if (pCmd == 'staffhelp') {
     //checks if author is staff
     if (recievedMessage.member.roles.cache.find(r => r.id === staffRole)){
         recievedMessage.delete()
-        recievedMessage.channel.send(staffhelpembed)
+        embeds.staffHelp(recievedMessage)
     }
     else{
         //sends DM if the author isnt a staff member
-        console.log(`${recievedMessage.author.username} is not a staff member(tried to use modhelp)`);
+        console.log(`${recievedMessage.author.username} is not a staff member(tried to use staffhelp)`);
         recievedMessage.delete()
         recievedMessage.author.send(`${recievedMessage.author.toString()} You don't have access to that command!`)
         
@@ -147,9 +147,8 @@ else if (pCmd == 'unmute') {
                             //sends mute log embed
                            sendLog(recievedMessage, 'alog', 'unmute', member)
                            //sends a dm to the muted member saying they have been muted
-                           member.send(unMuteDM)
-                           //makes sure the the bot dosen't crash from sneding dm
-                           .catch(() => console.log("Can't send DM to your user!"))
+                           embeds.unMmuteDm(recievedMessage)
+ 
                         }
                     }                             
                 }
@@ -230,9 +229,8 @@ else if (pCmd == 'mute'){
                             //sends mute log embed
                             sendLog(recievedMessage, 'alog', 'mute', member)
                             //sends a dm to the muted member saying they have been muted
-                            member.send(muteDM)
-                            //makes sure the the bot dosen't crash from sneding dm
-                            .catch(() => console.log("Can't send DM to your user!"))
+                            embeds.muteDM(recievedMessage)
+                            
                         }
                     }                             
                 }
@@ -299,7 +297,6 @@ else if (pCmd == 'suggest'){
             .setTitle('Suggestion Recieved!')
             .addField('Author of Suggestion:', '<@' + recievedMessage.author.id + '>')
             .addField('Suggestion:', recievedMessage.content)
-            .addField('False trigger?', 'Contact my developers @Mc_nobby#6969 or @Jaack#7159')
             .setThumbnail("https://i.imgur.com/IPNxl5W.png")
             .setColor('#b8002e');
             
@@ -345,44 +342,8 @@ const helpEmbed = new Discord.MessageEmbed()
     .setColor("#42e3b8")
 
 //mod help embed, to add new field do .addField
-const staffhelpembed = new Discord.MessageEmbed()
-    .setTitle("Hi, I'm AutoLogger, here to make your life easier. ")
-    .addField("!unmute", "This unmutes the user that you have tagged after the command. To tag a user who isn't in the channel you are in, do <@(their Id)>")
-    .addField("!mute", "This mutes the user that you have tagged after the command. ")
-    .addField("!allismuted", "Under maintenance. Teo and I are working on it as fast as we can D:")
-    .addField("!staffhelp", "The command you just used")
-    .addField("More questions? Want to tell us just how incredible our bot is? ", "Just talk to @Mc_nobby or @Jaack")
-    .setImage("https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif")
-    .setThumbnail("https://i.imgur.com/IPNxl5W.png")
-    .setColor("#42e3b8")
-
-//embed for letting someone that was muted, know that they have been muted
-const muteDM = new Discord.MessageEmbed()
-    .setTitle("You have been muted!")
-    .addField("This means:", "That you've broken a rule, or that we've deemed your message inappropiate.")
-    .addField("Try to mute evade?","If you mute evade by rejoining the server you will be banned permanently!")
-    .addField("False trigger?", "If you believe that this is a false trigger you will have to wait 30 minutes and see if you are unmuted. If you are still muted after that time, go ahead and make a ticket appealing your mute (keep in mind, we have the logs)")
-    .setColor("#b8002e")
-    .setThumbnail("https://i.imgur.com/IPNxl5W.png")
-    .setImage("https://i.imgur.com/48H0ILI.png")
-
-//embed for letting someone being unmuted that they are unmuted
-const unMuteDM = new Discord.MessageEmbed()
-    .setTitle("You have been unmuted!")
-    .addField("This means:", "That you can go ahead and chat as normal again!, but we'll be keeping an eye on you!")
-    .addField("If you get muted again:","You will be one step closer to being banned!")
-    .setColor("#03fca9")
-    .setThumbnail("https://i.imgur.com/IPNxl5W.png")
-    .setImage("https://i.imgur.com/48H0ILI.png")
 
 
-const staffhello = new Discord.MessageEmbed()
-    .setTitle("Hello! I'm a new bot on the server. You may be wondering what I do!")
-    .addField("I'm a bot coded by Nobby and Jack/LaughnCry.", "This means that if you have any questions or suggestions about the bot, DM us!")
-    .addField("What is my purpose?", "My main purpose is to make logging and moderation easier for all staff. To see the commands I can do, type !staffhelp")
-    .addField("What if staff are asleep while people are spamming slurs?", "No worries! I automatically delete the message, and mute the user; I also log everyones mutes and unmutes for you guys!")
-    .setImage("https://media1.tenor.com/images/a7bd6b94430c1e66148d580209e377c5/tenor.gif?itemid=5043108")
-    .setThumbnail("https://i.imgur.com/IPNxl5W.png")
-    .setColor("#34ebdb")
+
 
     

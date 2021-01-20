@@ -33,7 +33,22 @@ module.exports.muteDM = (recievedMessage) => {
     .setImage("https://i.imgur.com/48H0ILI.png")
     author.send(muteDM)
     //makes sure the the bot dosen't crassh incase they have dms off
-    .catch(() => console.log("Can't send DM to your user! (disabled dms)"))
+    .catch(() => console.log("Can't send DM to your user! (disabled dm's)"))
+}
+
+module.exports.unMmuteDm = (recievedMessage) => {
+    const {author} = recievedMessage
+    const unMuteDM = new Discord.MessageEmbed()
+    .setTitle("You have been unmuted!")
+    .addField("This means:", "That you can go ahead and chat as normal again!, but we'll be keeping an eye on you!")
+    .addField("If you get muted again:","You will be one step closer to being banned!")
+    .setColor("#03fca9")
+    .setThumbnail("https://i.imgur.com/IPNxl5W.png")
+    .setImage("https://i.imgur.com/48H0ILI.png")
+
+    author.send(unMuteDM)
+    //makes sure the the bot dosen't crassh incase they have dms off
+    .catch(() => console.log("Can't send DM to your user! (disabled dm's)"))
 }
 
 module.exports.muteLog = (recievedMessage, logChannel, muted) => {
@@ -97,4 +112,32 @@ module.exports.setupHelp = (recievedMessage) => {
     .setColor('#03fca9');
 
     channel.send(setupHelp)
+}
+
+module.exports.staffIntro = (recievedMessage) => {
+    const staffhello = new Discord.MessageEmbed()
+    .setTitle("Hello! I'm a new bot on the server. You may be wondering what I do!")
+    .addField("I'm a bot coded by Nobby and Jack/LaughnCry.", "This means that if you have any questions or suggestions about the bot, DM us!")
+    .addField("What is my purpose?", "My main purpose is to make logging and moderation easier for all staff. To see the commands I can do, type !staffhelp")
+    .addField("What if staff are asleep while people are spamming slurs?", "No worries! I automatically delete the message, and mute the user; I also log everyones mutes and unmutes for you guys!")
+    .setImage("https://media1.tenor.com/images/a7bd6b94430c1e66148d580209e377c5/tenor.gif?itemid=5043108")
+    .setThumbnail("https://i.imgur.com/IPNxl5W.png")
+    .setColor("#34ebdb")
+
+    recievedMessage.channel.send(staffhello)
+}
+
+module.exports.staffHelp = (recievedMessage) => {
+    const staffhelpembed = new Discord.MessageEmbed()
+    .setTitle("Hi, I'm AutoLogger, here to make your life easier. ")
+    .addField("!unmute", "This unmutes the user that you have tagged after the command. To tag a user who isn't in the channel you are in, do <@(their Id)>")
+    .addField("!mute", "This mutes the user that you have tagged after the command. ")
+    .addField("!allismuted", "Under maintenance. Teo and I are working on it as fast as we can D:")
+    .addField("!staffhelp", "The command you just used")
+    .addField("More questions? Want to tell us just how incredible our bot is? ", "Just talk to @Mc_nobby or @Jaack")
+    .setImage("https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif")
+    .setThumbnail("https://i.imgur.com/IPNxl5W.png")
+    .setColor("#42e3b8")
+
+    recievedMessage.channel.send(staffhelpembed)
 }
