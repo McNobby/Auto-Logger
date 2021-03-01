@@ -37,3 +37,7 @@ Make a auth.json file and write the following:
       }
 
 **Note: Auto Logger is only known to work with node.js v15**
+**Note: Auto logger took us some time to make, so any credit you give us is greatly appreciated!
+
+# Don't have the technical know how to host autologger yourself? 
+Dm either me, Jaack#1080 or Mc_nobby#0101 and we will be happy to set up AL for you!
