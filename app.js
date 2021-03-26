@@ -93,7 +93,7 @@ client.on('guildCreate', (newGuild) => {
 })
 
 
-//processes the promted command, and checks if its valid Jeg har ingen will to live
+//processes the promted command, and checks if its valid 
 function processCommand(recievedMessage){
     let fullCommand = recievedMessage.content.substr(1)
     let splitCommand = fullCommand.split(" ")
